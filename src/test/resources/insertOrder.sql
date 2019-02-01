@@ -1,0 +1,3 @@
+insert into orders(orderDate, requiredDate, shippedDate, comments, customerId, status) values('2019-01-15', '2019-02-15', null, 'test', (select id from customers where name='test'), 'SHIPPED');
+insert into orders(orderDate, requiredDate, shippedDate, comments, customerId, status) values('2019-01-16', '2019-02-16', null, 'test2', (select id from customers where name='test'), 'CANCELLED');
+insert into orders(orderDate, requiredDate, shippedDate, comments, customerId, status) values('2019-01-17', '2019-02-17', null, 'test3', (select id from customers where name='test'), 'PROCESSING');
