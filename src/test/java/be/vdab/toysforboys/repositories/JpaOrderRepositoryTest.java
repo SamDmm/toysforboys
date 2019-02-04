@@ -29,6 +29,17 @@ import be.vdab.toysforboys.enums.Status;
 @Sql("/insertCustomer.sql")
 @Sql("/insertOrder.sql")
 public class JpaOrderRepositoryTest extends AbstractTransactionalJUnit4SpringContextTests {
+//	private Order order;
+//	private Orderdetail orderdetail;
+//	private Product product;
+//	private Customer customer;
+//	@Before
+//	public void before() {
+//		customer = new Customer("test", "test 1", "test", "test", "1000", 1);
+//		product = new Product("test", "test", "test", 10, 5, BigDecimal.TEN, 1);
+//		orderdetail = new Orderdetail(5, BigDecimal.TEN, product);
+//		order = new Order(LocalDate.now(), LocalDate.now(), LocalDate.now(), "test", 1, customer, Status.PROCESSING);
+//	}
 	@Autowired
 	JpaOrderRepository repository;
 	@Autowired

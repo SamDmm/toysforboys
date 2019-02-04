@@ -2,9 +2,10 @@ package be.vdab.toysforboys.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
@@ -47,7 +48,7 @@ public class Order implements Serializable {
 	private long version;
 	@ElementCollection
 	@CollectionTable(name = "orderdetails", joinColumns = @JoinColumn(name = "orderId"))
-	private List<Orderdetail> orderdetails;
+	private Set<Orderdetail> orderdetails;
 	
 	public Order(LocalDate orderDate, LocalDate requiredDate, LocalDate shippedDate, String comments, long customerId, Customer customer, Status status) {
 		this.orderDate = orderDate;
@@ -56,7 +57,7 @@ public class Order implements Serializable {
 		this.comments = comments;
 		setCustomer(customer);
 		this.status = status;
-		this.orderdetails = new ArrayList<>();
+		this.orderdetails = new LinkedHashSet<>();
 	}
 	protected Order() {
 	}
@@ -85,8 +86,8 @@ public class Order implements Serializable {
 	public long getVersion() {
 		return version;
 	}
-	public List<Orderdetail> getOrderdetails() {
-		return Collections.unmodifiableList(orderdetails);
+	public Set<Orderdetail> getOrderdetails() {
+		return Collections.unmodifiableSet(orderdetails);
 	}
 	
 	public void setCustomer(Customer customer) {
@@ -94,6 +95,13 @@ public class Order implements Serializable {
 			throw new NullPointerException();
 		}
 		this.customer = customer;
+	}
+	
+	public void addOrderDetail(Orderdetail orderdetail) {
+		if (orderdetail == null) {
+			throw new NullPointerException();
+		}
+		orderdetails.add(orderdetail);
 	}
 	
 	public void setAsShipped() {
