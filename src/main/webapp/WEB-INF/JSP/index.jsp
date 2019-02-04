@@ -11,7 +11,10 @@
   <c:if test="${empty unShippedOrders}">
     <p>GEEN ORDERS GEVONDEN</p>
   </c:if>
+  <c:url value='/setAsShipped' var='url'></c:url>
+  <form action='${url}' method='post'>
   <table>
+  <thead>
     <tr>
       <th>ID</th>
       <th>Ordered</th>
@@ -21,18 +24,33 @@
       <th>Status</th>
       <th>Ship</th>
     </tr>
+  </thead>
+  <tbody>
     <c:forEach var="order" items="${unShippedOrders}">
     <tr>
       <td>${order.id}</td>
       <td>${order.orderDate}</td>
       <td>${order.requiredDate}</td>
-      <td>${order.customerId}</td>
+      <td>${order.customer.name}</td>
       <td>${order.comments}</td>
       <td><img src='<c:url value="/images/${order.status}.png"/>' title='status'>${order.status}</td>
-      <td></td>
+      <td class='selectColumn'><input type='checkbox' name='setAsShipped' value='${order.id}'></td>
     </tr>
     </c:forEach>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><input type='submit' value='Set As Shipped'></td>
+    </tr>
+  </tfoot>
   </table>
+  </form>
 </body>
 
 </html>

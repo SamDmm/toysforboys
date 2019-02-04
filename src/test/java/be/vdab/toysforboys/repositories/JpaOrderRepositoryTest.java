@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,16 +31,22 @@ import be.vdab.toysforboys.enums.Status;
 public class JpaOrderRepositoryTest extends AbstractTransactionalJUnit4SpringContextTests {
 	@Autowired
 	JpaOrderRepository repository;
+	@Autowired
+	EntityManager manager;
 	@Test
 	public void findUnShipped() {
 		List<Order> unShippedOrders = repository.findUnShipped();
+		manager.clear();
 		assertEquals(super.countRowsInTableWhere("orders", "status not in ('SHIPPED', 'CANCELLED')" ), unShippedOrders.size());
 		long vorigId = 0;
 		for (Order order : unShippedOrders) {
 			assertTrue(! (order.getStatus().equals(Status.SHIPPED) || order.getStatus().equals(Status.CANCELLED)));
 			assertTrue(order.getId() >= vorigId);
-			System.out.println(order.getStatus());
+			System.out.println(order.getCustomer().getName());
 		}
+		
 	}
+	
+	
 
 }
