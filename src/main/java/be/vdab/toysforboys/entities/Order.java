@@ -9,6 +9,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -27,19 +29,20 @@ public class Order implements Serializable {
 	private LocalDate requiredDate;
 	private LocalDate shippedDate;
 	private String comments;
-	private long customerId;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "customerId")
+	private Customer customer;
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	@Version
 	private long version;
 	
-	public Order(LocalDate orderDate, LocalDate requiredDate, LocalDate shippedDate, String comments, long customerId,
-			Status status) {
+	public Order(LocalDate orderDate, LocalDate requiredDate, LocalDate shippedDate, String comments, long customerId, Customer customer, Status status) {
 		this.orderDate = orderDate;
 		this.requiredDate = requiredDate;
 		this.shippedDate = shippedDate;
 		this.comments = comments;
-		this.customerId = customerId;
+		setCustomer(customer);
 		this.status = status;
 	}
 	protected Order() {
@@ -60,13 +63,19 @@ public class Order implements Serializable {
 	public String getComments() {
 		return comments;
 	}
-	public long getCustomerId() {
-		return customerId;
+	public Customer getCustomer() {
+		return customer;
 	}
 	public Status getStatus() {
 		return status;
 	}
 	public long getVersion() {
 		return version;
+	}
+	public void setCustomer(Customer customer) {
+		if (customer == null) {
+			throw new NullPointerException();
+		}
+		
 	}
 }

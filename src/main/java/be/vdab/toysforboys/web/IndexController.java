@@ -1,6 +1,7 @@
 package be.vdab.toysforboys.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -10,13 +11,16 @@ import be.vdab.toysforboys.services.OrderService;
 @RequestMapping("/")
 class IndexController {
 	private final OrderService orderService;
+	private static final String INDEX_VIEW = "index";
 	
 	IndexController(OrderService orderService) {
 		this.orderService = orderService;
 	}
 	
-	private static final String INDEX_VIEW = "index";
+	@GetMapping
 	ModelAndView index() {
-		return new ModelAndView(INDEX_VIEW, "unShippedOrders", orderService.findUnShipped());
+		ModelAndView modelAndView = new ModelAndView(INDEX_VIEW);
+		modelAndView.addObject("unShippedOrders", orderService.findUnShipped());
+		return modelAndView;
 	}
 }

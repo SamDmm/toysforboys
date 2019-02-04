@@ -1,1 +1,9 @@
 @charset "UTF-8";
+
+table {
+	border-collapse: collapse;
+}
+th {
+	background-color: #858585;
+	color: white;
+}
