@@ -11,6 +11,13 @@
   <c:if test="${empty unShippedOrders}">
     <p>GEEN ORDERS GEVONDEN</p>
   </c:if>
+  <c:if test="${not empty param.mislukteOrderIds}">
+    <h2>
+      Shipping failed for order(s) 
+      <c:forEach var="mislukteOrderId" items="${param.mislukteOrderIds}">${mislukteOrderId}, </c:forEach>
+      not enough stock
+    </h2>
+  </c:if>
   <c:url value='/setAsShipped' var='url'></c:url>
   <form action='${url}' method='post'>
   <table>
@@ -34,7 +41,7 @@
       <td>${order.customer.name}</td>
       <td>${order.comments}</td>
       <td><img src='<c:url value="/images/${order.status}.png"/>' title='status'>${order.status}</td>
-      <td class='selectColumn'><input type='checkbox' name='setAsShipped' value='${order.id}'></td>
+      <td class='selectColumn'><input type='checkbox' name='orderId' value='${order.id}'></td>
     </tr>
     </c:forEach>
   </tbody>
