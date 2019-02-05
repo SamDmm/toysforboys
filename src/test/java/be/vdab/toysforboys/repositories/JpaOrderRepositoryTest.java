@@ -1,6 +1,7 @@
 package be.vdab.toysforboys.repositories;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -29,21 +30,13 @@ import be.vdab.toysforboys.enums.Status;
 @Sql("/insertCustomer.sql")
 @Sql("/insertOrder.sql")
 public class JpaOrderRepositoryTest extends AbstractTransactionalJUnit4SpringContextTests {
-//	private Order order;
-//	private Orderdetail orderdetail;
-//	private Product product;
-//	private Customer customer;
-//	@Before
-//	public void before() {
-//		customer = new Customer("test", "test 1", "test", "test", "1000", 1);
-//		product = new Product("test", "test", "test", 10, 5, BigDecimal.TEN, 1);
-//		orderdetail = new Orderdetail(5, BigDecimal.TEN, product);
-//		order = new Order(LocalDate.now(), LocalDate.now(), LocalDate.now(), "test", 1, customer, Status.PROCESSING);
-//	}
 	@Autowired
 	JpaOrderRepository repository;
 	@Autowired
 	EntityManager manager;
+	public long idVanTestOrder() {
+		return super.jdbcTemplate.queryForObject("select id from orders where comments='test'", long.class);
+	}
 	@Test
 	public void findUnShipped() {
 		List<Order> unShippedOrders = repository.findUnShipped();
@@ -55,9 +48,16 @@ public class JpaOrderRepositoryTest extends AbstractTransactionalJUnit4SpringCon
 			assertTrue(order.getId() >= vorigId);
 			System.out.println(order.getCustomer().getName());
 		}
+	}
+	@Test
+	public void read() {
+		Order order = repository.read(idVanTestOrder()).get();
+		assertEquals("test", order.getComments());
+	}
+	@Test
+	public void readOnbestaandOrder() {
+		assertFalse(repository.read(-1).isPresent());
 		
 	}
-	
-	
 
 }

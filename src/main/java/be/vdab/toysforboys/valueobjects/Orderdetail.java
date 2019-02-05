@@ -6,10 +6,13 @@ import java.math.BigDecimal;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 
 import be.vdab.toysforboys.entities.Product;
 
 @Embeddable
+@NamedEntityGraph(name = "Orderdetail.metProduct", attributeNodes = @NamedAttributeNode("product"))
 public class Orderdetail implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int quantityOrdered;

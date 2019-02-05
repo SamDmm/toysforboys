@@ -105,6 +105,10 @@ public class Order implements Serializable {
 	}
 	
 	public void setAsShipped() {
-		
+		for(Orderdetail orderdetail : orderdetails) {
+			orderdetail.getProduct().takeQuantity(orderdetail.getQuantityOrdered());
+		}
+		status = Status.SHIPPED;
+		shippedDate = LocalDate.now();
 	}
 }

@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Version;
+
+import be.vdab.toysforboys.exceptions.NotEnoughQuantityInStockException;
 @Entity
 @Table(name = "products")
 public class Product implements Serializable {
@@ -65,6 +67,14 @@ public class Product implements Serializable {
 	}
 	public BigDecimal getBuyPrice() {
 		return buyPrice;
+	}
+	public void takeQuantity(int quantity) {
+		if (quantity <= quantityInStock) {
+			quantityInStock -= quantity;
+			quantityInOrder -= quantity;
+		} else {
+			throw new NotEnoughQuantityInStockException(id, name);
+		}
 	}
 	@Override
 	public int hashCode() {
