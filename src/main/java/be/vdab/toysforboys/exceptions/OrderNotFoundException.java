@@ -7,5 +7,7 @@ public class OrderNotFoundException extends RuntimeException {
 		super("Geen order gevonden met id:" + id);
 		this.id = id;
 	}
-	
+	public long getId() {
+		return id;
+	}
 }
