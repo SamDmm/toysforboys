@@ -1,0 +1,2 @@
+insert into orderdetails(orderId, productId, quantityOrdered, priceEach) values((select id from orders where comments='test'), (select id from products where name='test'), 2, 10);
+insert into orderdetails(orderId, productId, quantityOrdered, priceEach) values((select id from orders where comments='test2'), (select id from products where name='test'), 20, 20);

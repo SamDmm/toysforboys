@@ -1,0 +1,1 @@
+insert into products(name, scale, description, quantityInStock, quantityInOrder, buyPrice, productlineId) values('test', 'test', 'test', 10, 5, 10, 1);

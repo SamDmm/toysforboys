@@ -1,6 +1,7 @@
 package be.vdab.toysforboys.services;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import javax.persistence.EntityManager;
 
@@ -12,11 +13,15 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import be.vdab.toysforboys.exceptions.NotEnoughQuantityInStockException;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Sql("/insertCountry.sql")
 @Sql("/insertCustomer.sql")
 @Sql("/insertOrder.sql")
+@Sql("/insertProduct.sql")
+@Sql("/insertOrderdetail.sql")
 public class DefaultOrderServiceIntegrationTest extends AbstractTransactionalJUnit4SpringContextTests {
 	@Autowired
 	private DefaultOrderService service;
@@ -26,13 +31,24 @@ public class DefaultOrderServiceIntegrationTest extends AbstractTransactionalJUn
 	public long idVanTestOrder() {
 		return super.jdbcTemplate.queryForObject("select id from orders where comments='test'", long.class);
 	}
+	public long idVanTestOrder2() {
+		return super.jdbcTemplate.queryForObject("select id from orders where comments='test2'", long.class);
+	}
 	@Test
 	public void setAsShipped() {
-		vorige
+		long quantityOrdered = super.jdbcTemplate.queryForObject("select quantityOrdered from orderdetails where priceEach=10", long.class);
+		long quantityInStock = super.jdbcTemplate.queryForObject("select quantityInStock from products where name = 'test'", long.class);
+		long quantityInOrder = super.jdbcTemplate.queryForObject("select quantityInOrder from products where name = 'test'", long.class);
+		long quantityInStockNaShipped = quantityInStock - quantityOrdered;
+		long quantityInOrderNaShipped = quantityInOrder - quantityOrdered;
 		service.setAsShipped(idVanTestOrder());
-		Order testOrder = 
 		manager.flush();
-		assertEquals()
+		assertTrue(quantityInStockNaShipped == super.jdbcTemplate.queryForObject("select quantityInStock from products where name = 'test'", long.class));
+		assertTrue(quantityInOrderNaShipped == super.jdbcTemplate.queryForObject("select quantityInOrder from products where name = 'test'", long.class));
+	}
+	@Test(expected = NotEnoughQuantityInStockException.class)
+	public void setAsShippedOnvoldoendeVoorraad() {
+		service.setAsShipped(idVanTestOrder2());
 	}
 
 }
