@@ -25,11 +25,20 @@ tbody tr:nth-child(even) {
 tbody tr:nth-child(odd) {
 	background-color: white;
 }
+tfoot td {
+	border: none;
+}
 .deliverableColumn {
 	text-align: center;
 }
 .selectColumn {
 	text-align: center;
+}
+.noWrap {
+	white-space: nowrap;
+}
+.textAlignLeft {
+	text-align: left;
 }
 dt {
 	margin-top: 0.5em;

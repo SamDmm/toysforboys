@@ -43,8 +43,8 @@
       <td>${order.orderDate}</td>
       <td>${order.requiredDate}</td>
       <td>${order.customer.name}</td>
-      <td>${order.comments}</td>
-      <td><img src='<c:url value="/images/${order.status}.png"/>' title='status'>${order.status}</td>
+      <td class="textAlignLeft">${order.comments}</td>
+      <td class="textAlignLeft noWrap"><img src='<c:url value="/images/${order.status}.png"/>' title='status'>${order.status}</td>
       <td class='selectColumn'><input type='checkbox' name='orderId' value='${order.id}'></td>
     </tr>
     </c:forEach>
