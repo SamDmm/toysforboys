@@ -40,8 +40,8 @@
     </spring:url>
     <tr>
       <td><a href="${urlOrder}">${order.id}</a></td>
-      <td>${order.orderDate}</td>
-      <td>${order.requiredDate}</td>
+      <td><spring:eval expression="order.orderDate"/></td>
+      <td><spring:eval expression="order.requiredDate"/></td>
       <td>${order.customer.name}</td>
       <td class="textAlignLeft">${order.comments}</td>
       <td class="textAlignLeft noWrap"><img src='<c:url value="/images/${order.status}.png"/>' title='status'>${order.status}</td>

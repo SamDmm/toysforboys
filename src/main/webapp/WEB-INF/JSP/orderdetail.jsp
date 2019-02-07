@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8" session="false"%>
 <%@ taglib prefix="vdab" uri="http://vdab.be/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,9 +11,9 @@
   <h1>Order ${order.id}</h1>
   <dl>
     <dt>Ordered:</dt>
-    <dd>${order.orderDate}</dd>
+    <dd><spring:eval expression="order.orderDate"/></dd>
     <dt>Required:</dt>
-    <dd>${order.requiredDate}</dd>
+    <dd><spring:eval expression="order.requiredDate"/></dd>
     <dt>Customer:</dt>
     <dd>
       ${order.customer.name} <br>

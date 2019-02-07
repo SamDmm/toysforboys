@@ -23,6 +23,8 @@ import javax.persistence.NamedSubgraph;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import be.vdab.toysforboys.enums.Status;
 import be.vdab.toysforboys.valueobjects.Orderdetail;
 
@@ -35,8 +37,11 @@ public class Order implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	@DateTimeFormat(style = "S-")
 	private LocalDate orderDate;
+	@DateTimeFormat(style = "S-")
 	private LocalDate requiredDate;
+	@DateTimeFormat(style = "S-")
 	private LocalDate shippedDate;
 	private String comments;
 	@ManyToOne(optional = false)
