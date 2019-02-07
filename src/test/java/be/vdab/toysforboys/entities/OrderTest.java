@@ -24,7 +24,7 @@ public class OrderTest {
 	private Customer customer;
 	@Before
 	public void before() {
-		customer = new Customer("test", "test 1", "test", "test", "1000", 1);
+		customer = new Customer("test", "test 1", "test", "test", "1000", new Country("test"));
 		product1 = new Product("test", "test", "test", 10, 5, BigDecimal.TEN, 1);
 		product2 = new Product("test", "test", "test", 10, 5, BigDecimal.ONE, 1);
 		orderdetail1 = new Orderdetail(5, BigDecimal.TEN, product1);

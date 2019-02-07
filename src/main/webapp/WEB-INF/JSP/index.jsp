@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8" session="false"%>
 <%@ taglib prefix="vdab" uri="http://vdab.be/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,8 +35,11 @@
   </thead>
   <tbody>
     <c:forEach var="order" items="${unShippedOrders}">
+    <spring:url value="/orders/{id}" var="urlOrder">
+      <spring:param name="id" value="${order.id}"/>
+    </spring:url>
     <tr>
-      <td>${order.id}</td>
+      <td><a href="${urlOrder}">${order.id}</a></td>
       <td>${order.orderDate}</td>
       <td>${order.requiredDate}</td>
       <td>${order.customer.name}</td>

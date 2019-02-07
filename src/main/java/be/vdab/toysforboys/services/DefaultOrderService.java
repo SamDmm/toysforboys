@@ -21,6 +21,10 @@ class DefaultOrderService implements OrderService {
 	}
 
 	@Override
+	public Optional<Order> read(long id) {
+		return orderRepository.read(id);
+	}
+	@Override
 	public List<Order> findUnShipped() {
 		return orderRepository.findUnShipped();
 	}
@@ -34,5 +38,9 @@ class DefaultOrderService implements OrderService {
 		else {
 			throw new OrderNotFoundException(id);
 		}
+	}
+	@Override
+	public Optional<Order> readMetCustomerEnCountry(long id) {
+		return orderRepository.readMetCustomerEnCountry(id);
 	}
 }

@@ -1,6 +1,5 @@
 package be.vdab.toysforboys.services;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import javax.persistence.EntityManager;
@@ -45,6 +44,8 @@ public class DefaultOrderServiceIntegrationTest extends AbstractTransactionalJUn
 		manager.flush();
 		assertTrue(quantityInStockNaShipped == super.jdbcTemplate.queryForObject("select quantityInStock from products where name = 'test'", long.class));
 		assertTrue(quantityInOrderNaShipped == super.jdbcTemplate.queryForObject("select quantityInOrder from products where name = 'test'", long.class));
+		String statusNaShipped = super.jdbcTemplate.queryForObject("select status from orders where comments='test'", String.class);
+		assertTrue("SHIPPED".equals(statusNaShipped) || "CANCELLED".equals(statusNaShipped));
 	}
 	@Test(expected = NotEnoughQuantityInStockException.class)
 	public void setAsShippedOnvoldoendeVoorraad() {

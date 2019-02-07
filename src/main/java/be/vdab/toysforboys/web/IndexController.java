@@ -20,8 +20,6 @@ class IndexController {
 	private final OrderService orderService;
 	private static final String INDEX_VIEW = "index";
 	private static final String REDIRECT_INDEX = "redirect:/";
-	private static final String TESTPAGINA_VIEW = "testPagina";
-	
 	IndexController(OrderService orderService) {
 		this.orderService = orderService;
 	}

@@ -13,15 +13,17 @@ public class CustomerTest {
 	private Customer customer4;
 	private Customer customer5;
 	private Customer customer6;
+	private Customer customer7;
 	@Before
 	public void before() {
-		customer1 = new Customer("test", "test 1", "test", "test", "1000", 1);
-		nogEensCustomer1 = new Customer("test", "test 1", "test", "test", "1000", 1);
-		customer2 = new Customer("test2", "test 1", "test", "test", "1000", 1);
-		customer3 = new Customer("test", "test 2", "test", "test", "1000", 1);
-		customer4 = new Customer("test", "test 1", "test2", "test", "1000", 1);
-		customer5 = new Customer("test", "test 1", "test", "test2", "1000", 1);
-		customer6 = new Customer("test", "test 1", "test", "test", "2000", 1);
+		customer1 = new Customer("test", "test 1", "test", "test", "1000", new Country("test"));
+		nogEensCustomer1 = new Customer("test", "test 1", "test", "test", "1000", new Country("test"));
+		customer2 = new Customer("test2", "test 1", "test", "test", "1000", new Country("test"));
+		customer3 = new Customer("test", "test 2", "test", "test", "1000", new Country("test"));
+		customer4 = new Customer("test", "test 1", "test2", "test", "1000", new Country("test"));
+		customer5 = new Customer("test", "test 1", "test", "test2", "1000", new Country("test"));
+		customer6 = new Customer("test", "test 1", "test", "test", "2000", new Country("test"));
+		customer7 = new Customer("test", "test 1", "test", "test", "1000", new Country("test2"));
 	}
 	@Test
 	public void tweeCustomersMetDezelfdeNameStreetAndNumberCityStatePostalCodeCountryIdZijnDezelfde() {
@@ -46,5 +48,9 @@ public class CustomerTest {
 	@Test
 	public void customersMetVerschillendePostalCodeZijnVerschillend() {
 		assertNotEquals(customer1, customer6);
+	}
+	@Test
+	public void customersMetVerschillendeCountryZijnVerschillend() {
+		assertNotEquals(customer1, customer7);
 	}
 }

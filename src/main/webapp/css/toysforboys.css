@@ -3,12 +3,18 @@
 table {
 	border-collapse: collapse;
 }
+table, th, td {
+	border: 1px solid grey;	
+}
 /* table, th, td {
 	border: 1px solid grey;
 } */
 th {
 	background-color: #858585;
 	color: white;
+}
+td {
+	text-align: right;
 }
 th, td {
 	padding: 0px 15px 0px 15px;
@@ -19,6 +25,16 @@ tbody tr:nth-child(even) {
 tbody tr:nth-child(odd) {
 	background-color: white;
 }
+.deliverableColumn {
+	text-align: center;
+}
 .selectColumn {
 	text-align: center;
+}
+dt {
+	margin-top: 0.5em;
+}
+dd {
+	font-weight: bold;
+	margin: 0;
 }

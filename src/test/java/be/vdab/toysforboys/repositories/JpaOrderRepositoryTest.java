@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
@@ -57,7 +58,11 @@ public class JpaOrderRepositoryTest extends AbstractTransactionalJUnit4SpringCon
 	@Test
 	public void readOnbestaandOrder() {
 		assertFalse(repository.read(-1).isPresent());
-		
 	}
-
+	@Test
+	public void readMetCustomerEnCountry() {
+		Optional<Order> orderOptional = repository.readMetCustomerEnCountry(idVanTestOrder());
+		manager.clear();
+		assertEquals("test", orderOptional.get().getCustomer().getCountry().getName());
+	}
 }
