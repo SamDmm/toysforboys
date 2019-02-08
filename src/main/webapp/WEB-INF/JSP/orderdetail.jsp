@@ -39,9 +39,9 @@
       <c:forEach var="orderdetail" items="${order.orderdetails}">
         <tr>
           <td>${orderdetail.product.name}</td>
-          <td>${orderdetail.priceEach}</td>
+          <td><spring:eval expression="orderdetail.priceEach"/></td>
           <td>${orderdetail.quantityOrdered}</td>
-          <td>${orderdetail.priceEach * orderdetail.quantityOrdered}</td>
+          <td><spring:eval expression="orderdetail.totalPrice"/></td>
           <td class="deliverableColumn">${orderdetail.quantityOrdered < orderdetail.product.quantityInStock ? "&check;" : "&cross;"}</td>
         </tr>
       </c:forEach>
@@ -49,7 +49,7 @@
       </table>
     </dd>
     <dt>Value:</dt>
-    <dd>${order.totalPrice}</dd>
+    <dd><spring:eval expression="order.totalPrice"/></dd>
   </dl>
 </body>
 </html>

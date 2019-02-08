@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
+
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -24,6 +25,7 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
 
 import be.vdab.toysforboys.enums.Status;
 import be.vdab.toysforboys.valueobjects.Orderdetail;
@@ -91,6 +93,7 @@ public class Order implements Serializable {
 	public long getVersion() {
 		return version;
 	}
+	@NumberFormat(pattern = "0.00")
 	public BigDecimal getTotalPrice() {
 		return orderdetails.stream().map(orderdetail -> orderdetail.getPriceEach().multiply(BigDecimal.valueOf(orderdetail.getQuantityOrdered()))).reduce(BigDecimal.ZERO, (vorigeSom, getal) -> vorigeSom.add(getal));
 	}

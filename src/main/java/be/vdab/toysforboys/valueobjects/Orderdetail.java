@@ -9,6 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 
+import org.springframework.format.annotation.NumberFormat;
+
 import be.vdab.toysforboys.entities.Product;
 
 @Embeddable
@@ -16,6 +18,7 @@ import be.vdab.toysforboys.entities.Product;
 public class Orderdetail implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int quantityOrdered;
+	@NumberFormat(pattern = "0.00")
 	private BigDecimal priceEach;
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "productId")
@@ -43,6 +46,10 @@ public class Orderdetail implements Serializable {
 			throw new NullPointerException();
 		}
 		this.product = product;
+	}
+	@NumberFormat(pattern = "0.00")
+	public BigDecimal getTotalPrice() {
+		return priceEach.multiply(BigDecimal.valueOf(quantityOrdered));
 	}
 	@Override
 	public int hashCode() {
